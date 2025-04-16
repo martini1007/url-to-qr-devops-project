@@ -30,7 +30,9 @@ s3 = boto3.client(
     aws_access_key_id= os.getenv("AWS_ACCESS_KEY"),
     aws_secret_access_key= os.getenv("AWS_SECRET_KEY"))
 
-bucket_name = os.getenv("AWS_BUCKET_NAME")  # Add your bucket name here
+bucket_name = os.getenv("AWS_BUCKET_NAME")
+if not bucket_name:
+    raise HTTPException(status_code=500, detail="AWS_BUCKET_NAME is not set")
 
 @app.post("/generate-qr/")
 async def generate_qr(url: str):
