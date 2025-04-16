@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./api
+    container_name: qr-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./api/.env
+    networks:
+      - qr-net
+
+  frontend:
+    build:
+      context: ./front-end-nextjs
+    container_name: qr-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    networks:
+      - qr-net
+
+networks:
+  qr-net:
+    driver: bridge
