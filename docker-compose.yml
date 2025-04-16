@@ -9,6 +9,9 @@ services:
       - "8000:8000"
     env_file:
       - ./api/.env
+    volumes:
+      - ./api:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     networks:
       - qr-net
 
@@ -21,7 +24,11 @@ services:
     depends_on:
       - backend
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    volumes:
+      - ./front-end-nextjs:/app
+      - /app/node_modules  
+    command: npm run dev
     networks:
       - qr-net
 
