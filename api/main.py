@@ -15,6 +15,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://frontend-service:3000", 
 ]
 
 app.add_middleware(
@@ -65,4 +66,7 @@ async def generate_qr(url: str):
         return {"qr_code_url": s3_url}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
