@@ -1,0 +1,16 @@
+# backend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: qr-backend-service
+spec:
+  selector:
+    app: qr-backend
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: NodePort
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 30080
