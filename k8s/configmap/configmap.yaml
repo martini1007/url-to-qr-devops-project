@@ -1,0 +1,7 @@
+# configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qr-app-config
+data:
+  NEXT_PUBLIC_API_URL: "http://qr-backend-service:8000"
