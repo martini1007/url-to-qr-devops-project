@@ -8,10 +8,9 @@ Aplikacja, która konwertuje podany adres URL na kod QR i zapisuje go w chmurze 
 - ⚙️ Backend: FastAPI (Python)
 - ☁️ Chmura: AWS (EKS + S3)
 - 📦 Konteneryzacja: Docker, Kubernetes
-- 🚀 CI/CD: GitHub Actions
+- 🚀 CI/CD: Jenkins
 - 🔐 IaC: Terraform
 - 🔍 Monitoring: Prometheus, Grafana, CloudWatch
-- 🧰 Inne: Ansible, docker-compose
 
 ## 🎯 Cel projektu
 
@@ -22,4 +21,4 @@ Celem projektu jest zaprezentowanie pełnego cyklu DevOps:
 - Wdrożenie na Kubernetes (EKS)
 - Monitoring działania aplikacji
 
-
+[W TRAKCIE]
