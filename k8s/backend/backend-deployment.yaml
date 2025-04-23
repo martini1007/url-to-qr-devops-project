@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qr-backend-deployment
+  labels:
+    app: qr-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qr-backend
+  template:
+    metadata:
+      labels:
+        app: qr-backend
+    spec:
+      containers:
+      - name: qr-backend
+        image: martini1007/devops-qr-code-main-backend:latest
+        ports:
+        - containerPort: 8000
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "8000"]
+        env:
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_ACCESS_KEY
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_SECRET_KEY
+        - name: AWS_BUCKET_NAME
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_BUCKET_NAME
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
